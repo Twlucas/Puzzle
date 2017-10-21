@@ -1,39 +1,47 @@
 package Heuristica;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import Heuristica.Heuristica;
+import java.util.concurrent.TimeUnit;
 
 public class A_Search {
 	
 	public int busca(int[][] atual, int[][] dest, int op){
 		int cont = 0;
-		long itemp;
-		long ftemp;
+		long itemp = System.nanoTime();
 		Puzzle at = new Puzzle();
 		Heuristica nh = new Heuristica(op);
 		at.puzzle = atual;
 		int g;
 		int h;
-		
 		g = 0;
 		h = nh.heristica(atual, dest);
 		at.f = h + g;
 		LinkedList<Puzzle> visitados = new LinkedList<>();
         visitados.add(at);
 		while(true){
-			System.out.println("ma");
-            at.showPuzz();
-			System.out.println();
+			//System.out.println("ma");
+            //at.showPuzz();
+			//System.out.println();
 			if(at.compareTo(at.puzzle, dest)){
+				long ftemp = System.nanoTime();
+				long time = ftemp - itemp;
+				System.out.printf("Tempo total: "+ String.format("%d min, %d sec",TimeUnit.NANOSECONDS.toHours(time),
+						TimeUnit.NANOSECONDS.toSeconds(time) -
+								TimeUnit.MINUTES.toSeconds(TimeUnit.NANOSECONDS.toMinutes(time))));
 				return cont;
 			}
 			LinkedList<Puzzle> filhos = at.filhos(at);
 			cont++;
-			System.out.println(cont);
+			//System.out.println(cont);
 			Puzzle menor = null;
 			for(Puzzle f : filhos){
 				if(f.compareTo(f.puzzle, dest)){
+					long ftemp = System.nanoTime();
+					long time = ftemp - itemp;
+					System.out.printf("Tempo total: "+ String.format("%d min, %d sec",TimeUnit.NANOSECONDS.toHours(time),
+							TimeUnit.NANOSECONDS.toSeconds(time) -
+									TimeUnit.MINUTES.toSeconds(TimeUnit.NANOSECONDS.toMinutes(time))));
 					at = f;
 					return cont;
 				}
@@ -68,6 +76,11 @@ public class A_Search {
                 }
 			}
 			if(menor.compareTo(menor.puzzle, dest)){
+				long ftemp = System.nanoTime();
+				long time = ftemp - itemp;
+				System.out.printf("Tempo total: "+ String.format("%d min, %d sec",TimeUnit.NANOSECONDS.toHours(time),
+						TimeUnit.NANOSECONDS.toSeconds(time) -
+								TimeUnit.MINUTES.toSeconds(TimeUnit.NANOSECONDS.toMinutes(time))));
 				return cont;
 			}
 			at = menor;
@@ -75,5 +88,6 @@ public class A_Search {
                 visitados.add(at);
             }
 		}
+
 	}
 }

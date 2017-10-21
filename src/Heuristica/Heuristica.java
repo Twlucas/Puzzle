@@ -22,16 +22,14 @@ public class Heuristica {
 		return op;
 	}
 
-	public void setOp(int op) {
-		this.op = op;
-	}
-
 	public static int manhattan(int[][] atual, int[][] destino){
 		int sum = 0;
 		for(int i = 0 ; i < 3 ; i++){
 			for(int j = 0 ; j < 3 ; j++){
-				int[] iDest = Puzzle.getIndex(atual[i][j], atual);
-				sum += Math.abs(i - iDest[0]) + Math.abs(j - iDest[1]);
+				if(atual[i][j] != 0) {
+                    int[] iDest = Puzzle.getIndex(atual[i][j], atual);
+                    sum += Math.abs(i - iDest[0]) + Math.abs(j - iDest[1]);
+                }
 			}
 		}
 		return sum;
